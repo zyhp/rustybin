@@ -11,6 +11,7 @@ import {
   Code,
   Bell,
 } from "lucide-react";
+import { GitHubLink } from "@/components/layout/GitHubLink";
 import SecurityInfo from "@/components/paste/SecurityInfo";
 import { languageOptions, getLanguageLabel } from "@/utils/language-utils";
 import {
@@ -140,8 +141,8 @@ const MainLayout = ({
               to="/"
               className="items-center gap-1 text-lg font-semibold transition-opacity hidden md:flex"
             >
-              <span className="group text-[12px] uppercase tracking-wider font-bold text-primary transition-colors">
-                <span className="">rusty</span>
+              <span className="group text-[12px] uppercase tracking-wider font-bold transition-colors">
+                <span className="brand-gradient">foxy</span>
                 <span className="text-[12px] uppercase tracking-wider font-bold text-white group-hover:text-white/50 transition-colors">
                   bin
                 </span>
@@ -219,6 +220,7 @@ const MainLayout = ({
                 </button>
               ))}
             </nav>
+            <GitHubLink />
             {headerExtra}
           </div>
         </div>
@@ -313,6 +315,8 @@ const MainLayout = ({
               </button>
             }
           />
+
+          <GitHubLink showLabel />
 
           {showByteCounter && (
             <div className="items-center ml-auto gap-1.5 px-2 py-1 text-[10px] uppercase tracking-wider font-bold text-white/30 hidden sm:flex">
