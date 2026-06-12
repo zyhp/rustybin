@@ -713,7 +713,7 @@ const Index: React.FC = () => {
         )}
 
         <div className="flex flex-1 min-h-0">
-          <div className="flex flex-1 flex-col min-h-0">
+          <div className="flex flex-1 flex-col min-h-0 overflow-hidden">
         {showMarkdownRendered ? (
           <div className="flex-1 overflow-auto p-6 max-w-4xl mx-auto">
             <MarkdownViewer content={text} />
