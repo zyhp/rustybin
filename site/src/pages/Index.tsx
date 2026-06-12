@@ -29,7 +29,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MarkdownViewer } from "@/components/paste/MarkdownViewer";
-import { Copy, Check, Flame, Clock, Eye, Code, FolderOpen, Pencil, Columns, Shield } from "lucide-react";
+import { Copy, Check, Flame, Clock, Eye, Code, FolderOpen, Pencil, Columns, Shield, ShieldCheck, Settings2 } from "lucide-react";
+import { getLanguageLabel } from "@/utils/language-utils";
 import type { PasteTextAreaHandle } from "@/components/paste/PasteTextArea";
 import MarkdownToolbar from "@/components/paste/MarkdownToolbar";
 import { Switch } from "@/components/ui/switch";
@@ -753,6 +754,18 @@ const Index: React.FC = () => {
             dropDisabled={isViewMode && !canEdit}
           />
         )}
+
+        {/* Editor status bar */}
+        <div className="flex items-center border-t border-border bg-[#0d0e11] text-[10px] uppercase tracking-wider font-bold text-muted-foreground shrink-0">
+          <span className="px-3 py-1.5 border-r border-border">{getLanguageLabel(language)}</span>
+          <span className="hidden sm:inline px-3 py-1.5 border-r border-border">UTF-8</span>
+          <span className="px-3 py-1.5 border-r border-border">
+            {byteStats.lines} {byteStats.lines === 1 ? "line" : "lines"}
+          </span>
+          <span className="ml-auto flex items-center gap-1.5 px-3 py-1.5 text-success">
+            <ShieldCheck className="h-3 w-3" /> Encrypted
+          </span>
+        </div>
       </Layout>
 
       {/* Share Dialog */}
