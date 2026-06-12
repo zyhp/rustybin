@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Bell } from "lucide-react";
 
 interface ChangelogEntry {
   date: string;
@@ -67,6 +68,7 @@ const Changelog: React.FC<ChangelogProps> = ({ trigger, open, onOpenChange }) =>
     <DialogContent className="max-w-sm sm:max-w-2xl bg-[#0F1014] border-[1px] border-[#20222a] rounded overflow-y-auto max-h-[90vh]">
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2 text-xl">
+          <span className="icon-tile h-7 w-7 shrink-0"><Bell className="h-4 w-4" /></span>
           Changelog
         </DialogTitle>
         <DialogDescription className="text-white/50 text-base">

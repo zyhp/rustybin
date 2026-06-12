@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { FileText } from "lucide-react";
 
 interface TermsProps {
   trigger?: React.ReactNode;
@@ -19,6 +20,7 @@ const Terms: React.FC<TermsProps> = ({ trigger, open, onOpenChange }) => {
     <DialogContent className="sm:max-w-2xl bg-[#0F1014] border-[1px] border-[#20222a] rounded overflow-y-auto max-h-[90vh]">
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2 text-xl">
+          <span className="icon-tile h-7 w-7 shrink-0"><FileText className="h-4 w-4" /></span>
           Terms of Service
         </DialogTitle>
         <DialogDescription className="text-white/50 text-base">

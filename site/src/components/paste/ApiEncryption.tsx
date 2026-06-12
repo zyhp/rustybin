@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Key, Lock, Send, Link, Shield, FileCode, Gauge, Loader2 } from "lucide-react";
+import { Key, Lock, Send, Link, Shield, FileCode, Gauge, Loader2, Code } from "lucide-react";
 import { highlightWithPrism } from "@/utils/prism-utils";
 
 const CodeBlock = ({ code, language }: { code: string; language: string }) => {
@@ -186,6 +186,7 @@ const ApiEncryption: React.FC<ApiEncryptionProps> = ({ trigger, open, onOpenChan
     <DialogContent className="max-w-sm sm:max-w-2xl bg-[#0F1014] border-[1px] border-[#20222a] rounded overflow-y-auto max-h-[90vh]">
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2 text-xl">
+          <span className="icon-tile h-7 w-7 shrink-0"><Code className="h-4 w-4" /></span>
           API & Encryption Guide
         </DialogTitle>
         <DialogDescription className="text-white/50 text-base">

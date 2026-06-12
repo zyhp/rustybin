@@ -84,16 +84,39 @@
   @apply min-h-screen w-full;
 }
 
+/* foxyz button shine sweep */
+.btn-shine { position: relative; overflow: hidden; }
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.22) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+.btn-shine:hover::after { transform: translateX(120%); }
+
+/* foxyz orange icon tile */
+.icon-tile {
+  display: inline-grid;
+  place-content: center;
+  border-radius: 0.75rem;
+  background: hsl(var(--primary) / 0.10);
+  border: 1px solid hsl(var(--primary) / 0.25);
+  color: hsl(var(--primary));
+}
+
 /* Apple Intelligence-style gradient */
 .text-rainbow {
-  background: linear-gradient(90deg, #6ec2f7, #a982ed, #e68dc1, #f2a472);
+  background: linear-gradient(90deg, #ff6600, #ff8c33, #ffb37a);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .icon-rainbow {
-  color: #a982ed;
+  color: #ff8c33;
 }
 
 /* foxyz brand wordmark gradient */

@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Eye } from "lucide-react";
 
 interface PrivacyProps {
   trigger?: React.ReactNode;
@@ -18,6 +19,7 @@ const Privacy: React.FC<PrivacyProps> = ({ trigger, open, onOpenChange }) => {
     <DialogContent className="sm:max-w-2xl bg-[#0F1014] border-[1px] border-[#20222a] rounded overflow-y-auto max-h-[90vh]">
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2 text-xl">
+          <span className="icon-tile h-7 w-7 shrink-0"><Eye className="h-4 w-4" /></span>
           Privacy Policy
         </DialogTitle>
       </DialogHeader>
