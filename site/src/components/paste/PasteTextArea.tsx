@@ -274,7 +274,7 @@ const PasteTextArea = forwardRef<PasteTextAreaHandle, PasteTextAreaProps>(({
       )}
       <div
         ref={editorRef}
-        className="editor-scroll-container relative flex-grow overflow-auto font-mono flex flex-col"
+        className="editor-scroll-container relative flex-grow overflow-auto font-mono flex flex-col min-h-0"
         style={{ backgroundColor: background }}
       >
         {isLoading && (
