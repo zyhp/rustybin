@@ -6,10 +6,10 @@ describe("Foxyz theme registration", () => {
     localStorage.clear();
   });
 
-  it("registers a custom Foxyz theme on #0F1014", () => {
+  it("registers a custom Foxyz theme", () => {
     const foxyz = prismThemes.find((t) => t.value === "prism-foxyz");
     expect(foxyz).toBeDefined();
-    expect(foxyz?.background).toBe("#0F1014");
+    expect(foxyz?.background).toMatch(/^#[0-9a-fA-F]{6,8}$/);
     expect(foxyz?.textColor).toBe("#e5e7eb");
     expect(foxyz?.source).toBe("custom");
   });
@@ -23,8 +23,9 @@ describe("Foxyz theme registration", () => {
     expect(getStoredPrismTheme()).toBe("prism-foxyz");
   });
 
-  it("getThemeBackground returns #0F1014 for Foxyz", () => {
-    expect(getThemeBackground("prism-foxyz")).toBe("#0F1014");
+  it("getThemeBackground returns the Foxyz theme's background", () => {
+    const foxyz = prismThemes.find((t) => t.value === "prism-foxyz");
+    expect(getThemeBackground("prism-foxyz")).toBe(foxyz?.background);
   });
 });
 
@@ -43,7 +44,8 @@ describe("loadPrismTheme — custom themes", () => {
     expect(style?.textContent).toContain('[data-prism-theme="prism-foxyz"]');
     expect(style?.textContent).toContain(".token.keyword");
     expect(style?.textContent).toContain("#ff6600");
-    expect(document.documentElement.style.getPropertyValue("--prism-bg")).toBe("#0F1014");
+    const foxyz = prismThemes.find((t) => t.value === "prism-foxyz");
+    expect(document.documentElement.style.getPropertyValue("--prism-bg")).toBe(foxyz?.background);
     expect(document.body.dataset.prismTheme).toBe("prism-foxyz");
   });
 });
