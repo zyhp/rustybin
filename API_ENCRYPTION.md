@@ -52,7 +52,7 @@ Send a POST request to `/v1/pastes`:
 The API returns a paste ID. Construct the shareable URL:
 
 ```
-https://rustybin.net/<paste_id>#<key_base64>
+https://foxybin.net/<paste_id>#<key_base64>
 ```
 
 The encryption key is placed in the URL fragment (`#`) so it's never sent to the server.
@@ -88,7 +88,7 @@ const combined = Buffer.concat([iv, encrypted, tag]);
 const encryptedBase64 = combined.toString('base64');
 
 // Create paste via API
-const response = await fetch('https://api.rustybin.net/v1/pastes', {
+const response = await fetch('https://api.foxybin.net/v1/pastes', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -98,7 +98,7 @@ const response = await fetch('https://api.rustybin.net/v1/pastes', {
 });
 
 const result = await response.json();
-console.log(`Share URL: https://rustybin.net/${result.id}#${keyBase64}`);
+console.log(`Share URL: https://foxybin.net/${result.id}#${keyBase64}`);
 ```
 
 #### Python
@@ -126,13 +126,13 @@ combined = iv + encrypted
 encrypted_base64 = base64.b64encode(combined).decode()
 
 # Create paste via API
-response = requests.post('https://api.rustybin.net/v1/pastes', json={
+response = requests.post('https://api.foxybin.net/v1/pastes', json={
     'data': encrypted_base64,
     'language': 'python'
 })
 
 result = response.json()
-print(f"Share URL: https://rustybin.net/{result['id']}#{key_base64}")
+print(f"Share URL: https://foxybin.net/{result['id']}#{key_base64}")
 ```
 
 ## Decryption Process
