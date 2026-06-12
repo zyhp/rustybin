@@ -24,7 +24,10 @@ import {
 import Terms from "../paste/Terms";
 import Privacy from "../paste/Privacy";
 import ApiEncryption from "../paste/ApiEncryption";
-import Changelog, { hasUnreadChangelog, markChangelogRead } from "../paste/Changelog";
+import Changelog, {
+  hasUnreadChangelog,
+  markChangelogRead,
+} from "../paste/Changelog";
 
 type MainLayoutProps = {
   children: React.ReactNode;
@@ -72,7 +75,9 @@ const MainLayout = ({
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [apiEncryptionOpen, setApiEncryptionOpen] = useState(false);
   const [changelogOpen, setChangelogOpen] = useState(false);
-  const [changelogUnread, setChangelogUnread] = useState(() => hasUnreadChangelog());
+  const [changelogUnread, setChangelogUnread] = useState(() =>
+    hasUnreadChangelog(),
+  );
 
   // Check if API is available
   const [isApiAvailable, setIsApiAvailable] = useState(true);
@@ -220,7 +225,6 @@ const MainLayout = ({
                 </button>
               ))}
             </nav>
-            <GitHubLink />
             {headerExtra}
           </div>
         </div>
@@ -234,13 +238,43 @@ const MainLayout = ({
         <div className="flex min-h-[30px] items-center  py-1">
           {(() => {
             const isChecking = apiHealth === "checking";
-            const dotColor = isChecking ? "bg-white/30" : !isApiAvailable ? "bg-red-500" : apiHealth === "ok" ? "bg-green-500" : apiHealth === "degraded" ? "bg-amber-500" : "bg-orange-500";
-            const textColor = isChecking ? "text-white/30" : !isApiAvailable ? "text-red-500" : apiHealth === "ok" ? "text-green-500" : apiHealth === "degraded" ? "text-amber-500" : "text-orange-500";
-            const label = isChecking ? "checking" : !isApiAvailable ? "offline" : apiHealth === "ok" ? "online" : apiHealth === "degraded" ? "degraded" : "unhealthy";
+            const dotColor = isChecking
+              ? "bg-white/30"
+              : !isApiAvailable
+                ? "bg-red-500"
+                : apiHealth === "ok"
+                  ? "bg-green-500"
+                  : apiHealth === "degraded"
+                    ? "bg-amber-500"
+                    : "bg-orange-500";
+            const textColor = isChecking
+              ? "text-white/30"
+              : !isApiAvailable
+                ? "text-red-500"
+                : apiHealth === "ok"
+                  ? "text-green-500"
+                  : apiHealth === "degraded"
+                    ? "text-amber-500"
+                    : "text-orange-500";
+            const label = isChecking
+              ? "checking"
+              : !isApiAvailable
+                ? "offline"
+                : apiHealth === "ok"
+                  ? "online"
+                  : apiHealth === "degraded"
+                    ? "degraded"
+                    : "unhealthy";
             return (
-              <div className={`items-center gap-1.5 pl-2 pr-3 py-1 text-[10px] uppercase tracking-wider font-bold ${textColor} hidden sm:flex border-r mr-1.5 border-white/10`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${dotColor} relative`}>
-                  <div className={`w-1.5 h-1.5 rounded-full ${dotColor} animate-ping`}></div>
+              <div
+                className={`items-center gap-1.5 pl-2 pr-3 py-1 text-[10px] uppercase tracking-wider font-bold ${textColor} hidden sm:flex border-r mr-1.5 border-white/10`}
+              >
+                <div
+                  className={`w-1.5 h-1.5 rounded-full ${dotColor} relative`}
+                >
+                  <div
+                    className={`w-1.5 h-1.5 rounded-full ${dotColor} animate-ping`}
+                  ></div>
                 </div>
                 <span className="inline">{label}</span>
               </div>

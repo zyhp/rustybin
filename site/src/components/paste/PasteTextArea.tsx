@@ -274,7 +274,7 @@ const PasteTextArea = forwardRef<PasteTextAreaHandle, PasteTextAreaProps>(({
       )}
       <div
         ref={editorRef}
-        className="editor-scroll-container relative flex-grow overflow-auto font-mono flex flex-col min-h-0"
+        className="editor-scroll-container absolute inset-0 overflow-auto font-mono flex flex-col"
         style={{ backgroundColor: background }}
       >
         {isLoading && (
@@ -292,7 +292,7 @@ const PasteTextArea = forwardRef<PasteTextAreaHandle, PasteTextAreaProps>(({
           highlight={highlightCode}
           disabled={readOnly || isLoading}
           padding={12}
-          className="editor-container flex-1"
+          className="editor-container min-h-full shrink-0"
           style={{
             background: `${background} !important`,
             color: `${textColor} !important`,

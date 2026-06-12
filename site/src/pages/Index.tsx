@@ -2,7 +2,9 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 import Layout from "@/components/layout/Layout";
-import PasteTextArea, { type ByteStats } from "@/components/paste/PasteTextArea";
+import PasteTextArea, {
+  type ByteStats,
+} from "@/components/paste/PasteTextArea";
 import { detectLanguage } from "@/lib/language-detector";
 import { debounce } from "@/lib/debounce";
 import { processDroppedFiles } from "@/lib/file-drop";
@@ -29,7 +31,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MarkdownViewer } from "@/components/paste/MarkdownViewer";
-import { Copy, Check, Flame, Clock, Eye, Code, FolderOpen, Pencil, Columns, Shield, ShieldCheck, Settings2 } from "lucide-react";
+import {
+  Copy,
+  Check,
+  Flame,
+  Clock,
+  Eye,
+  Code,
+  FolderOpen,
+  Pencil,
+  Columns,
+  Shield,
+  ShieldCheck,
+  Settings2,
+} from "lucide-react";
 import { getLanguageLabel } from "@/utils/language-utils";
 import type { PasteTextAreaHandle } from "@/components/paste/PasteTextArea";
 import MarkdownToolbar from "@/components/paste/MarkdownToolbar";
@@ -61,11 +76,11 @@ const EXPIRATION_OPTIONS = [
   { value: "10080", label: "1 week" },
 ];
 
-
 const Index: React.FC = () => {
   const [text, setText] = useState("");
   const [language, setLanguage] = useState("markdown");
-  const [isLanguageManuallySelected, setIsLanguageManuallySelected] = useState(false);
+  const [isLanguageManuallySelected, setIsLanguageManuallySelected] =
+    useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isViewMode, setIsViewMode] = useState(false);
   const [canEdit, setCanEdit] = useState(false);
@@ -81,7 +96,9 @@ const Index: React.FC = () => {
   const [copiedEdit, setCopiedEdit] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [markdownView, setMarkdownView] = useState(true);
-  const [previewMode, setPreviewMode] = useState<"write" | "preview" | "split">("write");
+  const [previewMode, setPreviewMode] = useState<"write" | "preview" | "split">(
+    "write",
+  );
   const editorRef = useRef<PasteTextAreaHandle>(null);
   const [byteStats, setByteStats] = useState<ByteStats>({
     lines: 0,
@@ -98,16 +115,19 @@ const Index: React.FC = () => {
   // Handle paste success messages from localStorage
   useEffect(() => {
     const pasteSuccess = localStorage.getItem("pasteSuccess");
-    const clipboardSuccess = localStorage.getItem("clipboardSuccess") === "true";
+    const clipboardSuccess =
+      localStorage.getItem("clipboardSuccess") === "true";
 
     if (pasteSuccess && !localStorage.getItem("showShareDialog")) {
       if (clipboardSuccess) {
-        toast.success("Paste created! A shareable URL was copied to your clipboard");
+        toast.success(
+          "Paste created! A shareable URL was copied to your clipboard",
+        );
       } else {
         toast.success("Paste created! You are viewing your new paste");
       }
     }
-    
+
     localStorage.removeItem("pasteSuccess");
     localStorage.removeItem("clipboardSuccess");
     localStorage.removeItem("showShareDialog");
@@ -134,7 +154,9 @@ const Index: React.FC = () => {
       const keys = extractKeyFromUrl();
 
       if (!keys) {
-        toast.error("No decryption key found in URL. Make sure to use the full link.");
+        toast.error(
+          "No decryption key found in URL. Make sure to use the full link.",
+        );
         setIsLoading(false);
         return;
       }
@@ -157,7 +179,9 @@ const Index: React.FC = () => {
               toast.error("Invalid decryption key format.");
               break;
             case "DECRYPTION_FAILED":
-              toast.error("Failed to decrypt. The key may be incorrect or the data is corrupted.");
+              toast.error(
+                "Failed to decrypt. The key may be incorrect or the data is corrupted.",
+              );
               break;
             default:
               toast.error(`Error: ${error.message}`);
@@ -203,7 +227,7 @@ const Index: React.FC = () => {
       // If detection returns something valid (not "unknown"), use it
       // Otherwise fallback to javascript
       const newLanguage = detected !== "unknown" ? detected : "javascript";
-      
+
       // Only update if the language actually changed
       if (newLanguage !== language) {
         setLanguage(newLanguage);
@@ -241,13 +265,17 @@ const Index: React.FC = () => {
     if (result.files.length === 0) return;
 
     if (files.length > 1 && result.files.length >= 1) {
-      toast.warning("Only the first file was imported. Use a Workspace for multiple files.");
+      toast.warning(
+        "Only the first file was imported. Use a Workspace for multiple files.",
+      );
     }
 
     const file = result.files[0];
     const MAX_BYTES = 125000;
     if (file.byteSize > MAX_BYTES) {
-      toast.error(`${file.name} exceeds the size limit (${Math.round(file.byteSize / 1000)}KB / ${MAX_BYTES / 1000}KB)`);
+      toast.error(
+        `${file.name} exceeds the size limit (${Math.round(file.byteSize / 1000)}KB / ${MAX_BYTES / 1000}KB)`,
+      );
       return;
     }
 
@@ -257,10 +285,10 @@ const Index: React.FC = () => {
     toast.success(`${file.name} imported`);
   }, []);
 
-  const copyToClipboard = async (text: string, type: 'view' | 'edit') => {
+  const copyToClipboard = async (text: string, type: "view" | "edit") => {
     try {
       await navigator.clipboard.writeText(text);
-      if (type === 'view') {
+      if (type === "view") {
         setCopiedView(true);
         setTimeout(() => setCopiedView(false), 2000);
       } else {
@@ -287,7 +315,12 @@ const Index: React.FC = () => {
       setIsLoading(true);
 
       try {
-        await updatePaste(id, { data: content, language }, keyInfo.encryptionKey, keyInfo.editKey);
+        await updatePaste(
+          id,
+          { data: content, language },
+          keyInfo.encryptionKey,
+          keyInfo.editKey,
+        );
         toast.dismiss(loadingToast);
         toast.success("Paste updated successfully!");
       } catch (error) {
@@ -321,7 +354,7 @@ const Index: React.FC = () => {
           burnAfterRead: advancedMode ? burnAfterRead : false,
           expiresInMinutes: advancedMode ? expiresInMinutes : null,
           quantumResistant: advancedMode ? quantumResistant : false,
-        }
+        },
       );
 
       toast.dismiss(loadingToast);
@@ -335,24 +368,24 @@ const Index: React.FC = () => {
       const origin = window.location.origin;
 
       // Parse the result URL to extract parts
-      const [pasteIdWithKey] = result.url.split('#');
-      const hashPart = result.url.includes('#') ? result.url.split('#')[1] : '';
+      const [pasteIdWithKey] = result.url.split("#");
+      const hashPart = result.url.includes("#") ? result.url.split("#")[1] : "";
 
       // Handle quantum prefix: q:<key>:<editKey> vs <key>:<editKey>
       let viewOnlyHash: string;
       let editKey: string | undefined;
 
-      if (hashPart.startsWith('q:')) {
+      if (hashPart.startsWith("q:")) {
         const afterPrefix = hashPart.substring(2);
-        const colonIdx = afterPrefix.indexOf(':');
+        const colonIdx = afterPrefix.indexOf(":");
         if (colonIdx !== -1) {
-          viewOnlyHash = 'q:' + afterPrefix.substring(0, colonIdx);
+          viewOnlyHash = "q:" + afterPrefix.substring(0, colonIdx);
           editKey = afterPrefix.substring(colonIdx + 1);
         } else {
-          viewOnlyHash = 'q:' + afterPrefix;
+          viewOnlyHash = "q:" + afterPrefix;
         }
       } else {
-        const parts = hashPart.split(':');
+        const parts = hashPart.split(":");
         viewOnlyHash = parts[0];
         editKey = parts[1];
       }
@@ -373,14 +406,16 @@ const Index: React.FC = () => {
           quantumResistant,
         });
         setShareDialogOpen(true);
-        
+
         // Copy view-only URL by default
         await navigator.clipboard.writeText(viewOnlyUrl).catch(() => {});
-        
+
         // If burn-after-read is enabled, DON'T navigate to the paste
         // This would consume the one-time view before the user can share it
         if (burnAfterRead) {
-          toast.success("Paste created! URL copied to clipboard. Share it - the paste will be deleted after first view.");
+          toast.success(
+            "Paste created! URL copied to clipboard. Share it - the paste will be deleted after first view.",
+          );
           // Clear the editor for a fresh start
           setText("");
           setAdvancedMode(false);
@@ -419,7 +454,16 @@ const Index: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [id, keyInfo, language, navigate, advancedMode, burnAfterRead, expiresInMinutes, quantumResistant]);
+  }, [
+    id,
+    keyInfo,
+    language,
+    navigate,
+    advancedMode,
+    burnAfterRead,
+    expiresInMinutes,
+    quantumResistant,
+  ]);
 
   const deleteContent = useCallback(async () => {
     if (!id || !keyInfo?.editKey) {
@@ -484,13 +528,14 @@ const Index: React.FC = () => {
 
   // Determine if we should show save button (new paste or editable existing paste)
   const showSaveButton = !isViewMode || canEdit;
-  
+
   // Only show advanced toggle when creating a new paste (not viewing)
   const showAdvancedToggle = currentPath === "/" && !isViewMode;
 
   // Markdown rendering logic
   const isMarkdown = language === "markdown";
-  const showMarkdownRendered = isMarkdown && isViewMode && !canEdit && markdownView;
+  const showMarkdownRendered =
+    isMarkdown && isViewMode && !canEdit && markdownView;
   // Whether the user is actively editing (new paste or editing with key)
   const isEditing = !isViewMode || canEdit;
   // Whether to show the create/edit preview mode controls
@@ -517,7 +562,10 @@ const Index: React.FC = () => {
             />
           </div>
         </TooltipTrigger>
-        <TooltipContent side="bottom" className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors">
+        <TooltipContent
+          side="bottom"
+          className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors"
+        >
           <p>Enable advanced options when saving a paste</p>
         </TooltipContent>
       </Tooltip>
@@ -538,7 +586,10 @@ const Index: React.FC = () => {
                 />
               </div>
             </TooltipTrigger>
-            <TooltipContent side="bottom" className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors">
+            <TooltipContent
+              side="bottom"
+              className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors"
+            >
               <p>Burn after read</p>
             </TooltipContent>
           </Tooltip>
@@ -552,7 +603,9 @@ const Index: React.FC = () => {
                 <Select
                   value={expiresInMinutes?.toString() || "never"}
                   onValueChange={(value) =>
-                    setExpiresInMinutes(value === "never" ? null : parseInt(value))
+                    setExpiresInMinutes(
+                      value === "never" ? null : parseInt(value),
+                    )
                   }
                 >
                   <SelectTrigger className="h-[21px] w-[120px] text-[10px] uppercase tracking-wider font-bold bg-[#0F1014]/0 border-[#20222a] rounded">
@@ -572,7 +625,10 @@ const Index: React.FC = () => {
                 </Select>
               </div>
             </TooltipTrigger>
-            <TooltipContent side="bottom" className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors">
+            <TooltipContent
+              side="bottom"
+              className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors"
+            >
               <p>Delete after</p>
             </TooltipContent>
           </Tooltip>
@@ -604,8 +660,14 @@ const Index: React.FC = () => {
                   />
                 </div>
               </TooltipTrigger>
-              <TooltipContent side="bottom" className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors">
-                <p><span className="text-rainbow">Quantum-resistant</span> encryption (ML-KEM-1024)</p>
+              <TooltipContent
+                side="bottom"
+                className="rounded border border-white/10 hover:border-primary/50 bg-black/20 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold text-white/50 hover:text-primary transition-colors"
+              >
+                <p>
+                  <span className="text-rainbow">Quantum-resistant</span>{" "}
+                  encryption (ML-KEM-1024)
+                </p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -637,14 +699,19 @@ const Index: React.FC = () => {
         maxBytes={125000}
         isOverLimit={byteStats.remaining < 0}
         showByteCounter={true}
-        headerExtra={advancedControls && (
-          <div className="flex sm:hidden items-center gap-2 ml-2">
-            {advancedControls}
-          </div>
-        )}
+        headerExtra={
+          advancedControls && (
+            <div className="flex sm:hidden items-center gap-2 ml-2">
+              {advancedControls}
+            </div>
+          )
+        }
       >
         {/* Secondary bar: markdown toolbar, preview toggle, advanced controls, new workspace */}
-        {(isMarkdown && isViewMode && !canEdit || showPreviewControls || showAdvancedToggle || currentPath === "/") && (
+        {((isMarkdown && isViewMode && !canEdit) ||
+          showPreviewControls ||
+          showAdvancedToggle ||
+          currentPath === "/") && (
           <div className="flex items-center gap-2 px-1 py-1 border-b border-white/10 bg-[#1a1b20] sticky top-[35px] z-40">
             {/* View-mode markdown toggle (read-only pastes) */}
             {isMarkdown && isViewMode && !canEdit && (
@@ -655,9 +722,13 @@ const Index: React.FC = () => {
                 onClick={() => setMarkdownView(!markdownView)}
               >
                 {markdownView ? (
-                  <><Code className="h-3.5 w-3.5" /> Source</>
+                  <>
+                    <Code className="h-3.5 w-3.5" /> Source
+                  </>
                 ) : (
-                  <><Eye className="h-3.5 w-3.5" /> Preview</>
+                  <>
+                    <Eye className="h-3.5 w-3.5" /> Preview
+                  </>
                 )}
               </Button>
             )}
@@ -665,11 +736,23 @@ const Index: React.FC = () => {
             {/* Markdown toolbar (create/edit mode) */}
             {showPreviewControls && (
               <>
-                <MarkdownToolbar editorRef={editorRef} text={text} setText={setText} />
+                <MarkdownToolbar
+                  editorRef={editorRef}
+                  text={text}
+                  setText={setText}
+                />
                 <div className="flex items-center gap-0.5 border-l border-white/10 pl-2">
                   {(["write", "preview", "split"] as const).map((mode) => {
-                    const icons = { write: Pencil, preview: Eye, split: Columns };
-                    const labels = { write: "Write", preview: "Preview", split: "Split" };
+                    const icons = {
+                      write: Pencil,
+                      preview: Eye,
+                      split: Columns,
+                    };
+                    const labels = {
+                      write: "Write",
+                      preview: "Preview",
+                      split: "Split",
+                    };
                     const Icon = icons[mode];
                     return (
                       <Button
@@ -677,7 +760,9 @@ const Index: React.FC = () => {
                         variant="ghost"
                         size="sm"
                         className={`h-6 gap-1 text-[10px] uppercase rounded tracking-wider font-bold transition-colors ${
-                          previewMode === mode ? "text-primary" : "text-white/40 hover:text-primary"
+                          previewMode === mode
+                            ? "text-primary"
+                            : "text-white/40 hover:text-primary"
                         }`}
                         onClick={() => setPreviewMode(mode)}
                       >
@@ -713,18 +798,36 @@ const Index: React.FC = () => {
         )}
 
         <div className="flex flex-1 min-h-0">
-          <div className="flex flex-1 flex-col min-h-0 overflow-hidden">
-        {showMarkdownRendered ? (
-          <div className="flex-1 overflow-auto p-6 max-w-4xl mx-auto">
-            <MarkdownViewer content={text} />
-          </div>
-        ) : showPreviewControls && previewMode === "preview" ? (
-          <div className="flex-1 overflow-auto p-6 max-w-4xl mx-auto">
-            <MarkdownViewer content={text} />
-          </div>
-        ) : showPreviewControls && previewMode === "split" ? (
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 min-h-0">
-            <div className="flex flex-col min-h-0 overflow-hidden border-r border-white/10">
+          <div className="flex flex-1 flex-col min-h-0">
+            {showMarkdownRendered ? (
+              <div className="flex-1 overflow-auto p-6 max-w-4xl mx-auto">
+                <MarkdownViewer content={text} />
+              </div>
+            ) : showPreviewControls && previewMode === "preview" ? (
+              <div className="flex-1 overflow-auto p-6 max-w-4xl mx-auto">
+                <MarkdownViewer content={text} />
+              </div>
+            ) : showPreviewControls && previewMode === "split" ? (
+              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 min-h-0">
+                <div className="flex flex-col min-h-0 overflow-hidden border-r border-white/10">
+                  <PasteTextArea
+                    ref={editorRef}
+                    text={text}
+                    setText={setText}
+                    language={language}
+                    isLoading={isLoading}
+                    readOnly={isViewMode && !canEdit}
+                    showLineNumbers={isViewMode}
+                    onByteStatsChange={setByteStats}
+                    onFileDrop={handleFileDrop}
+                    dropDisabled={isViewMode && !canEdit}
+                  />
+                </div>
+                <div className="flex-1 overflow-auto p-6 max-w-none hidden md:block">
+                  <MarkdownViewer content={text} />
+                </div>
+              </div>
+            ) : (
               <PasteTextArea
                 ref={editorRef}
                 text={text}
@@ -737,59 +840,84 @@ const Index: React.FC = () => {
                 onFileDrop={handleFileDrop}
                 dropDisabled={isViewMode && !canEdit}
               />
-            </div>
-            <div className="flex-1 overflow-auto p-6 max-w-none hidden md:block">
-              <MarkdownViewer content={text} />
-            </div>
-          </div>
-        ) : (
-          <PasteTextArea
-            ref={editorRef}
-            text={text}
-            setText={setText}
-            language={language}
-            isLoading={isLoading}
-            readOnly={isViewMode && !canEdit}
-            showLineNumbers={isViewMode}
-            onByteStatsChange={setByteStats}
-            onFileDrop={handleFileDrop}
-            dropDisabled={isViewMode && !canEdit}
-          />
-        )}
+            )}
           </div>
 
           {/* Options side-panel (desktop, create mode) */}
           {showAdvancedToggle && (
-            <aside className="hidden lg:flex w-64 shrink-0 flex-col border-l border-border bg-card">
+            <aside className="hidden lg:flex w-64 shrink-0 flex-col border-l border-border bg-card overflow-y-auto">
               <div className="flex items-center gap-2 h-[37px] px-3 border-b border-border text-[13px] font-semibold text-white">
-                <span className="icon-tile h-6 w-6"><Settings2 className="h-3.5 w-3.5" /></span>
+                <span className="icon-tile h-6 w-6">
+                  <Settings2 className="h-3.5 w-3.5" />
+                </span>
                 Options
               </div>
 
               <div className="flex items-center justify-between px-3 py-3 border-b border-border text-sm">
-                <Label htmlFor="advanced-panel" className="cursor-pointer text-white/80">Advanced</Label>
-                <Switch id="advanced-panel" checked={advancedMode} onCheckedChange={setAdvancedMode} className="h-[21px]" />
+                <Label
+                  htmlFor="advanced-panel"
+                  className="cursor-pointer text-white/80"
+                >
+                  Advanced
+                </Label>
+                <Switch
+                  id="advanced-panel"
+                  checked={advancedMode}
+                  onCheckedChange={setAdvancedMode}
+                  className="h-[21px]"
+                />
               </div>
 
-              <div className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}>
-                <span className="flex items-center gap-2 text-white/80"><Clock className="h-3.5 w-3.5" /> Expiration</span>
-                <Select value={expiresInMinutes?.toString() || "never"} onValueChange={(value) => setExpiresInMinutes(value === "never" ? null : parseInt(value))}>
-                  <SelectTrigger className="h-[24px] w-[104px] text-[11px] bg-[#1a1b20] border-border rounded"><SelectValue /></SelectTrigger>
+              <div
+                className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}
+              >
+                <span className="flex items-center gap-2 text-white/80">
+                  <Clock className="h-3.5 w-3.5" /> Expiration
+                </span>
+                <Select
+                  value={expiresInMinutes?.toString() || "never"}
+                  onValueChange={(value) =>
+                    setExpiresInMinutes(
+                      value === "never" ? null : parseInt(value),
+                    )
+                  }
+                >
+                  <SelectTrigger className="h-[24px] w-[104px] text-[11px] bg-[#1a1b20] border-border rounded">
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent className="bg-[#0F1014] border-border rounded">
                     {EXPIRATION_OPTIONS.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className="text-[11px]">{option.label}</SelectItem>
+                      <SelectItem
+                        key={option.value}
+                        value={option.value}
+                        className="text-[11px]"
+                      >
+                        {option.label}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              <div className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}>
-                <span className="flex items-center gap-2 text-white/80"><Flame className="h-3.5 w-3.5" /> Burn after read</span>
-                <Switch checked={burnAfterRead} onCheckedChange={setBurnAfterRead} className="h-[21px]" />
+              <div
+                className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}
+              >
+                <span className="flex items-center gap-2 text-white/80">
+                  <Flame className="h-3.5 w-3.5" /> Burn after read
+                </span>
+                <Switch
+                  checked={burnAfterRead}
+                  onCheckedChange={setBurnAfterRead}
+                  className="h-[21px]"
+                />
               </div>
 
-              <div className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}>
-                <span className="flex items-center gap-2 text-white/80"><Shield className="h-3.5 w-3.5" /> Quantum</span>
+              <div
+                className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}
+              >
+                <span className="flex items-center gap-2 text-white/80">
+                  <Shield className="h-3.5 w-3.5" /> Quantum
+                </span>
                 <Switch
                   checked={quantumResistant}
                   onCheckedChange={async (checked) => {
@@ -822,8 +950,12 @@ const Index: React.FC = () => {
 
         {/* Editor status bar */}
         <div className="flex items-center border-t border-border bg-[#0d0e11] text-[10px] uppercase tracking-wider font-bold text-muted-foreground shrink-0">
-          <span className="px-3 py-1.5 border-r border-border">{getLanguageLabel(language)}</span>
-          <span className="hidden sm:inline px-3 py-1.5 border-r border-border">UTF-8</span>
+          <span className="px-3 py-1.5 border-r border-border">
+            {getLanguageLabel(language)}
+          </span>
+          <span className="hidden sm:inline px-3 py-1.5 border-r border-border">
+            UTF-8
+          </span>
           <span className="px-3 py-1.5 border-r border-border">
             {byteStats.lines} {byteStats.lines === 1 ? "line" : "lines"}
           </span>
@@ -845,12 +977,15 @@ const Index: React.FC = () => {
             </DialogDescription>
           </DialogHeader>
 
-          {(shareData?.burnAfterRead || shareData?.expiresInMinutes || shareData?.quantumResistant) && (
+          {(shareData?.burnAfterRead ||
+            shareData?.expiresInMinutes ||
+            shareData?.quantumResistant) && (
             <div className="flex flex-wrap gap-2 pb-2">
               {shareData?.quantumResistant && (
                 <div className="flex items-center gap-1.5 px-2 py-1 text-xs rounded bg-white/5 border border-white/10">
                   <Shield className="h-3.5 w-3.5 icon-rainbow" />
-                  <span className="text-rainbow">Quantum-resistant</span> <span className="text-white/50">(long URL)</span>
+                  <span className="text-rainbow">Quantum-resistant</span>{" "}
+                  <span className="text-white/50">(long URL)</span>
                 </div>
               )}
               {shareData?.burnAfterRead && (
@@ -862,7 +997,12 @@ const Index: React.FC = () => {
               {shareData?.expiresInMinutes && (
                 <div className="flex items-center gap-1.5 px-2 py-1 text-xs rounded bg-blue-500/10 border border-blue-500/20 text-blue-300">
                   <Clock className="h-3.5 w-3.5" />
-                  Expires in {shareData.expiresInMinutes < 60 ? `${shareData.expiresInMinutes} min` : shareData.expiresInMinutes < 1440 ? `${shareData.expiresInMinutes / 60} hr` : `${shareData.expiresInMinutes / 1440} days`}
+                  Expires in{" "}
+                  {shareData.expiresInMinutes < 60
+                    ? `${shareData.expiresInMinutes} min`
+                    : shareData.expiresInMinutes < 1440
+                      ? `${shareData.expiresInMinutes / 60} hr`
+                      : `${shareData.expiresInMinutes / 1440} days`}
                 </div>
               )}
             </div>
@@ -872,7 +1012,9 @@ const Index: React.FC = () => {
             <div className="space-y-2">
               <label className="text-white text-sm font-medium flex items-center gap-2">
                 Read-only URL
-                <span className="text-xs text-white/50">(recommended for sharing)</span>
+                <span className="text-xs text-white/50">
+                  (recommended for sharing)
+                </span>
               </label>
               <div className="flex items-center gap-2">
                 <Input
@@ -883,17 +1025,26 @@ const Index: React.FC = () => {
                 />
                 <Button
                   variant="default"
-                  onClick={() => shareData && copyToClipboard(shareData.viewOnlyUrl, 'view')}
+                  onClick={() =>
+                    shareData && copyToClipboard(shareData.viewOnlyUrl, "view")
+                  }
                   className="h-10 w-10 bg-[#0F1014] border-[1px] border-[#20222a] rounded hover:bg-[#0F1014] hover:text-primary"
                 >
-                  {copiedView ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                  {copiedView ? (
+                    <Check className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
                 </Button>
               </div>
             </div>
 
             <div className="space-y-2">
               <label className="text-white text-sm font-medium flex items-center gap-2">
-                Editable URL <span className="text-xs text-amber-300">(people with this link can edit or delete the paste)</span>
+                Editable URL{" "}
+                <span className="text-xs text-amber-300">
+                  (people with this link can edit or delete the paste)
+                </span>
               </label>
               <div className="flex items-center gap-2">
                 <Input
@@ -904,18 +1055,25 @@ const Index: React.FC = () => {
                 />
                 <Button
                   variant="default"
-                  onClick={() => shareData && copyToClipboard(shareData.editableUrl, 'edit')}
+                  onClick={() =>
+                    shareData && copyToClipboard(shareData.editableUrl, "edit")
+                  }
                   className="h-10 w-10 bg-[#0F1014] border-[1px] border-[#20222a] rounded hover:bg-[#0F1014] hover:text-primary"
                 >
-                  {copiedEdit ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                  {copiedEdit ? (
+                    <Check className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
                 </Button>
               </div>
             </div>
           </div>
           <DialogFooter>
             <div className="bg-amber-500/10 border border-amber-500/20 p-3 text-xs text-amber-200/80 italic">
-              <strong>Important:</strong> Since we don't save your decryption key, we cannot recover your data if you lose the link.
-              Please keep your URLs safe.
+              <strong>Important:</strong> Since we don't save your decryption
+              key, we cannot recover your data if you lose the link. Please keep
+              your URLs safe.
             </div>
           </DialogFooter>
         </DialogContent>
@@ -929,7 +1087,8 @@ const Index: React.FC = () => {
               Delete paste
             </DialogTitle>
             <DialogDescription className="text-white/50">
-              Are you sure you want to delete this paste? This action cannot be undone.
+              Are you sure you want to delete this paste? This action cannot be
+              undone.
             </DialogDescription>
           </DialogHeader>
 
