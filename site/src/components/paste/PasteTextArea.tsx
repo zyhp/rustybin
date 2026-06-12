@@ -247,8 +247,7 @@ const PasteTextArea = forwardRef<PasteTextAreaHandle, PasteTextAreaProps>(
     const renderLineNumbers = () => {
       if (!showLineNumbers) return null;
 
-      const lines = text.split("\n");
-      const lineCount = lines.length;
+      const lineCount = text.split("\n").length;
 
       // Calculate appropriate colors for line numbers
       const lineNumberColor = isLightTheme

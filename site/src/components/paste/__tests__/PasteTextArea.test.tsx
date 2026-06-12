@@ -27,6 +27,15 @@ describe("PasteTextArea line numbers", () => {
     expect(Array.from(rows).map((r) => r.textContent)).toEqual(["1", "2", "3"]);
   });
 
+  it("counts a trailing newline as an extra line", () => {
+    const { container } = render(
+      <PasteTextArea text={"hello\n"} setText={noop} language="none" />,
+    );
+    const gutter = container.querySelector('[data-testid="line-numbers"]');
+    const rows = gutter!.querySelectorAll(":scope > div");
+    expect(Array.from(rows).map((r) => r.textContent)).toEqual(["1", "2"]);
+  });
+
   it("reserves the gutter margin so the placeholder sits beside the numbers", () => {
     const { container } = render(
       <PasteTextArea text="" setText={noop} language="none" />,
