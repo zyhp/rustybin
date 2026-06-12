@@ -47,13 +47,13 @@
 
 /* Links */
 .markdown-body a {
-  color: hsl(348, 26%, 65%);
+  color: hsl(24, 95%, 58%);
   text-decoration: none;
 }
 
 .markdown-body a:hover {
   text-decoration: underline;
-  color: hsl(348, 30%, 72%);
+  color: hsl(24, 100%, 66%);
 }
 
 /* Bold & italic */
@@ -138,8 +138,8 @@
 }
 
 .markdown-body .task-checkbox:checked {
-  background: hsl(348, 26%, 60%);
-  border-color: hsl(348, 26%, 60%);
+  background: hsl(24, 100%, 50%);
+  border-color: hsl(24, 100%, 50%);
 }
 
 .markdown-body .task-checkbox:checked::after {
@@ -158,7 +158,7 @@
 .markdown-body blockquote {
   margin: 0 0 1em 0;
   padding: 0.5em 1em;
-  border-left: 3px solid hsl(348, 26%, 45%);
+  border-left: 3px solid hsl(24, 90%, 45%);
   color: #aaa;
   background: rgba(255, 255, 255, 0.02);
 }
@@ -178,7 +178,7 @@
   padding: 0.15em 0.4em;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.08);
-  color: hsl(348, 26%, 70%);
+  color: hsl(24, 100%, 62%);
 }
 
 /* Code blocks */
@@ -362,19 +362,19 @@
 }
 
 .markdown-body sup a[data-footnote-ref] {
-  color: hsl(348, 26%, 65%);
+  color: hsl(24, 95%, 58%);
   text-decoration: none;
   font-size: 0.8em;
   padding: 0 2px;
 }
 
 .markdown-body sup a[data-footnote-ref]:hover {
-  color: hsl(348, 30%, 75%);
+  color: hsl(24, 100%, 68%);
   text-decoration: underline;
 }
 
 .markdown-body a[data-footnote-backref] {
-  color: hsl(348, 26%, 60%);
+  color: hsl(24, 100%, 50%);
   text-decoration: none;
   font-size: 0.85em;
 }
@@ -458,7 +458,7 @@
 }
 
 .markdown-body summary:hover {
-  color: hsl(348, 26%, 65%);
+  color: hsl(24, 95%, 58%);
 }
 
 .markdown-body details > *:not(summary) {
