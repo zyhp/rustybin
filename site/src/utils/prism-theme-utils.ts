@@ -232,6 +232,51 @@ export function getThemeBackground(theme: PrismTheme): string {
   return themeObj ? themeObj.background : "#0F1014"; // Default to Foxyz bg
 }
 
+// Local token colors for the custom Foxyz theme (palette C).
+// Scoped under the body data attribute so it never leaks into CDN themes.
+const FOXYZ_THEME_CSS = `
+[data-prism-theme="prism-foxyz"] .token.comment,
+[data-prism-theme="prism-foxyz"] .token.prolog,
+[data-prism-theme="prism-foxyz"] .token.doctype,
+[data-prism-theme="prism-foxyz"] .token.cdata { color: #5f6672; font-style: italic; }
+
+[data-prism-theme="prism-foxyz"] .token.punctuation { color: #8a90a0; }
+
+[data-prism-theme="prism-foxyz"] .token.keyword,
+[data-prism-theme="prism-foxyz"] .token.atrule,
+[data-prism-theme="prism-foxyz"] .token.selector,
+[data-prism-theme="prism-foxyz"] .token.tag { color: #ff6600; font-weight: 600; }
+
+[data-prism-theme="prism-foxyz"] .token.class-name,
+[data-prism-theme="prism-foxyz"] .token.builtin,
+[data-prism-theme="prism-foxyz"] .token.property,
+[data-prism-theme="prism-foxyz"] .token.attr-name { color: #5ed3c0; }
+
+[data-prism-theme="prism-foxyz"] .token.function,
+[data-prism-theme="prism-foxyz"] .token.function-variable { color: #ffc06a; }
+
+[data-prism-theme="prism-foxyz"] .token.string,
+[data-prism-theme="prism-foxyz"] .token.char,
+[data-prism-theme="prism-foxyz"] .token.attr-value,
+[data-prism-theme="prism-foxyz"] .token.regex,
+[data-prism-theme="prism-foxyz"] .token.inserted { color: #8ee3b6; }
+
+[data-prism-theme="prism-foxyz"] .token.number,
+[data-prism-theme="prism-foxyz"] .token.boolean,
+[data-prism-theme="prism-foxyz"] .token.constant,
+[data-prism-theme="prism-foxyz"] .token.symbol { color: #d3b1ff; }
+
+[data-prism-theme="prism-foxyz"] .token.operator,
+[data-prism-theme="prism-foxyz"] .token.entity,
+[data-prism-theme="prism-foxyz"] .token.url { color: #9aa0ae; }
+
+[data-prism-theme="prism-foxyz"] .token.deleted { color: #d72d3f; }
+[data-prism-theme="prism-foxyz"] .token.namespace { opacity: 0.7; }
+[data-prism-theme="prism-foxyz"] .token.important,
+[data-prism-theme="prism-foxyz"] .token.bold { font-weight: 700; }
+[data-prism-theme="prism-foxyz"] .token.italic { font-style: italic; }
+`;
+
 // Load the theme's CSS dynamically
 export function loadPrismTheme(theme: PrismTheme): void {
   if (typeof document === "undefined") return;
@@ -283,6 +328,12 @@ export function loadPrismTheme(theme: PrismTheme): void {
     }, 0);
   }
 
+  // Custom themes ship token colors locally — inject and skip the CDN fetch.
+  if (themeObj?.source === "custom") {
+    styleElement.textContent = FOXYZ_THEME_CSS;
+    return;
+  }
+
   // Determine the URL based on the theme source
   const themeWithoutPrefix = theme.replace("prism-", "");
   const isDefaultTheme = themeObj?.source === "default";
@@ -315,9 +366,9 @@ export function loadPrismTheme(theme: PrismTheme): void {
       console.error(`Failed to load theme ${theme}:`, err);
 
       // Fall back to a default theme if loading fails
-      if (theme !== "prism-tomorrow") {
+      if (theme !== "prism-foxyz") {
         console.log("Falling back to default theme");
-        setTheme("prism-tomorrow");
+        setTheme("prism-foxyz");
       }
     });
 }
