@@ -133,7 +133,7 @@ const MainLayout = ({
 
   return (
     // Title bar
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen overflow-hidden flex-col">
       <header className="sticky top-0 z-50 border-b bg-[#0d0e11]">
         <div className="flex min-h-[35px] flex-col sm:flex-row sm:items-center sm:justify-between px-2 -mt-1 py-1 sm:py-0 sm:mt-0 gap-y-1">
           <div className="flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto">
