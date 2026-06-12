@@ -15,7 +15,7 @@ interface PrivacyProps {
 
 const Privacy: React.FC<PrivacyProps> = ({ trigger, open, onOpenChange }) => {
   const content = (
-    <DialogContent className="sm:max-w-2xl bg-[#0A0A0A] border-[1px] border-[#222222] rounded overflow-y-auto max-h-[90vh]">
+    <DialogContent className="sm:max-w-2xl bg-[#0F1014] border-[1px] border-[#20222a] rounded overflow-y-auto max-h-[90vh]">
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2 text-xl">
           Privacy Policy

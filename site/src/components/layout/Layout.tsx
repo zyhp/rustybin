@@ -133,7 +133,7 @@ const MainLayout = ({
   return (
     // Title bar
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 border-b bg-[#0F0F0F]">
+      <header className="sticky top-0 z-50 border-b bg-[#0d0e11]">
         <div className="flex min-h-[35px] flex-col sm:flex-row sm:items-center sm:justify-between px-2 -mt-1 py-1 sm:py-0 sm:mt-0 gap-y-1">
           <div className="flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto">
             <Link
@@ -149,7 +149,7 @@ const MainLayout = ({
             </Link>
             <div className="flex items-center gap-2">
               {isLoading && (
-                <div className="flex items-center text-xs text-muted-foreground bg-[#0A0A0A] border-[1px] border-[#222222] px-2 py-0.5 mt-0.5">
+                <div className="flex items-center text-xs text-muted-foreground bg-[#0F1014] border-[1px] border-[#20222a] px-2 py-0.5 mt-0.5">
                   <Loader2 className="h-3 w-3 animate-spin mr-1.5 text-primary" />
                   <span className="text-[10px] uppercase tracking-wider font-bold text-white/70">
                     saving...
@@ -157,7 +157,7 @@ const MainLayout = ({
                 </div>
               )}
               {isDetectingLanguage && !isLoading && (
-                <div className="flex items-center text-xs text-muted-foreground bg-[#0A0A0A] border-[1px] border-[#222222] px-2 py-0.5 mt-0.5">
+                <div className="flex items-center text-xs text-muted-foreground bg-[#0F1014] border-[1px] border-[#20222a] px-2 py-0.5 mt-0.5">
                   <Loader2 className="h-3 w-3 animate-spin mr-1.5 text-primary" />
                   <span className="text-[10px] uppercase tracking-wider font-bold text-white/70">
                     determining language...
@@ -175,10 +175,10 @@ const MainLayout = ({
                   onValueChange={setLanguage}
                   disabled={readOnly || isLoading}
                 >
-                  <SelectTrigger className="h-[21px] w-[120px] text-[10px] uppercase tracking-wider font-bold bg-[#0A0A0A]/0 border-[#222222] rounded mr-1">
+                  <SelectTrigger className="h-[21px] w-[120px] text-[10px] uppercase tracking-wider font-bold bg-[#0F1014]/0 border-[#20222a] rounded mr-1">
                     <SelectValue>{getLanguageLabel(language)}</SelectValue>
                   </SelectTrigger>
-                  <SelectContent className="bg-[#0A0A0A] border-[#222222] rounded max-h-[400px]">
+                  <SelectContent className="bg-[#0F1014] border-[#20222a] rounded max-h-[400px]">
                     {languageOptions.map((option) => (
                       <SelectItem
                         key={option.value}
@@ -209,7 +209,7 @@ const MainLayout = ({
                     }`}
                 >
                   {item.shortcut && (
-                    <span className="text-xs text-foreground bg-[#0A0A0A]/0 border rounded border-[#222222] px-1 py-[2px] font-mono hidden md:inline -mr-2">
+                    <span className="text-xs text-foreground bg-[#0F1014]/0 border rounded border-[#20222a] px-1 py-[2px] font-mono hidden md:inline -mr-2">
                       {item.shortcut}
                     </span>
                   )}
@@ -228,7 +228,7 @@ const MainLayout = ({
         {children}
       </main>
 
-      <footer className="sticky bottom-0 z-50 border-t border-white/10 bg-[#0F0F0F]">
+      <footer className="sticky bottom-0 z-50 border-t border-white/10 bg-[#0d0e11]">
         <div className="flex min-h-[30px] items-center  py-1">
           {(() => {
             const isChecking = apiHealth === "checking";

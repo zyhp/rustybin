@@ -69,7 +69,7 @@ export function LanguageBreakdown({ data }: LanguageBreakdownProps) {
           </Pie>
           <Tooltip
             contentStyle={{
-              backgroundColor: "#2D2D2D",
+              backgroundColor: "#14151b",
               border: "1px solid #555",
               borderRadius: "8px",
               color: "#e0e0e0",

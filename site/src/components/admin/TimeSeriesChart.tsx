@@ -45,7 +45,7 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#2D2D2D",
+              backgroundColor: "#14151b",
               border: `1px solid ${MAUVE}`,
               borderRadius: "8px",
               color: "#e0e0e0",
