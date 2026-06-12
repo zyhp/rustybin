@@ -4,6 +4,14 @@ import { z } from "zod";
 // List of available Prism themes with their associated background colors
 // Extended with themes from https://github.com/PrismJS/prism-themes
 export const prismThemes = [
+  // Custom foxyz theme — token colors shipped locally (see FOXYZ_THEME_CSS)
+  {
+    value: "prism-foxyz",
+    label: "Foxyz",
+    background: "#0F1014",
+    textColor: "#e5e7eb",
+    source: "custom",
+  },
   // Default Prism themes
   {
     value: "prism-tomorrow",
@@ -198,18 +206,18 @@ const PrismThemeSchema = z.enum(prismThemeValues);
 export type PrismTheme = z.infer<typeof PrismThemeSchema>;
 
 // Local storage key for the theme
-const STORAGE_KEY = "rustybin-prism-theme";
+const STORAGE_KEY = "foxybin-prism-theme";
 
 /**
  * Get the Prism theme from localStorage or use default
  * Uses zod for safe parsing of stored value
  */
 export function getStoredPrismTheme(): PrismTheme {
-  if (typeof window === "undefined") return "prism-tomorrow";
+  if (typeof window === "undefined") return "prism-foxyz";
 
   const storedTheme = window.localStorage.getItem(STORAGE_KEY);
   const parsed = PrismThemeSchema.safeParse(storedTheme);
-  return parsed.success ? parsed.data : "prism-tomorrow";
+  return parsed.success ? parsed.data : "prism-foxyz";
 }
 
 // Save theme to localStorage
@@ -221,7 +229,7 @@ export function savePrismTheme(theme: PrismTheme): void {
 // Get the background color for a specific theme
 export function getThemeBackground(theme: PrismTheme): string {
   const themeObj = prismThemes.find((t) => t.value === theme);
-  return themeObj ? themeObj.background : "#2d2d2d"; // Default to Tomorrow Night bg
+  return themeObj ? themeObj.background : "#0F1014"; // Default to Foxyz bg
 }
 
 // Load the theme's CSS dynamically
