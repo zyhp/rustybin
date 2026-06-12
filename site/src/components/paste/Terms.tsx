@@ -22,7 +22,7 @@ const Terms: React.FC<TermsProps> = ({ trigger, open, onOpenChange }) => {
           Terms of Service
         </DialogTitle>
         <DialogDescription className="text-white/50 text-base">
-          By using Rustybin (the "Service"), you agree to the following terms:
+          By using foxybin (the "Service"), you agree to the following terms:
         </DialogDescription>
       </DialogHeader>
 
