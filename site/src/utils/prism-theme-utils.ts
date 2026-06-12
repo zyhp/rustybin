@@ -8,7 +8,7 @@ export const prismThemes = [
   {
     value: "prism-foxyz",
     label: "Foxyz",
-    background: "#0F1014",
+    background: "#15161bff",
     textColor: "#e5e7eb",
     source: "custom",
   },
