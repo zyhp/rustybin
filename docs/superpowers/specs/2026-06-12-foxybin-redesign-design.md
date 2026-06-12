@@ -31,6 +31,9 @@ signature layer + a rebrand**, not a rewrite.
   favicon, frontend copy, README/changelog). Repo name, Rust crate, directories, and code
   identifiers are left as-is.
 - **Wordmark:** `foxy` in the orange gradient + `bin` in near-white.
+- **GitHub link:** a GitHub **icon link** in the nav (top-right) and footer, opening
+  `https://github.com/EternityX/rustybin/` in a new tab — icon only, no dedicated page.
+  (Target stays the `rustybin` repo; only user-facing text is rebranded.)
 
 ## Non-goals / out of scope
 
@@ -100,6 +103,15 @@ page grain (drop if it reads noisy).
 
 **Out:** everything under Non-goals (no heavy/animated effects).
 
+## GitHub link
+
+- A GitHub icon in the nav (top-right, next to the nav links) and in the footer/status bar,
+  styled in the muted/foreground hover language (gray → near-white/orange on hover).
+- Both link to `https://github.com/EternityX/rustybin/` with `target="_blank"` and
+  `rel="noopener noreferrer"`.
+- Use the existing icon set — `lucide-react`'s `Github` glyph if it's already a dependency,
+  otherwise a small inline SVG. (Verify during implementation.)
+
 ## 5. Files to change (all under `site/`)
 
 - `src/index.css` — palette (`:root` + `.dark`), body bg, font import, `.brand-gradient`,
@@ -109,7 +121,8 @@ page grain (drop if it reads noisy).
   (`bg-primary/20`) don't apply, switch color defs to `hsl(var(--x) / <alpha-value>)`.
 - `src/components/ui/button.tsx` — primary (orange pill/bar) + secondary (orange-text) variants.
 - `src/components/ui/card.tsx` — flat near-black + border + drop-shadow (mostly via vars).
-- `src/components/layout/Layout.tsx` — foxybin gradient wordmark, nav, flush borders, status bar.
+- `src/components/layout/Layout.tsx` — foxybin gradient wordmark, nav, flush borders, status
+  bar, and the GitHub icon link (nav + footer).
 - `src/components/paste/*` — editor toolbar + options panel as flush, divider-aligned cells;
   `MarkdownToolbar`; restyle the "quantum-resistant" badge to the neutral card + gradient-dot
   treatment.
@@ -140,7 +153,8 @@ Index (paste create/view/edit), Workspace, AdminLogin, AdminDashboard, all dialo
 
 - `cd site && npm run dev`; eyeball `/`, `/:id`, `/w/new`, `/admin/login`, `/admin`; open each
   dialog, the markdown preview, and trigger a toast (create a paste). Check: orange focus
-  rings, button variants, continuous dividers, foxybin wordmark, workspace drag/drop.
+  rings, button variants, continuous dividers, foxybin wordmark, workspace drag/drop, and the
+  GitHub icon link (nav + footer) opening the repo in a new tab.
 - `npm run build` (typecheck) and lint; run existing `site/src/lib/__tests__`.
 - `cargo test && cargo clippy` as a no-change sanity check (no backend edits).
 - Confirm all commits land on `003-foxybin-redesign` only; `master`/`main` unchanged.
