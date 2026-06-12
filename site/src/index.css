@@ -1,84 +1,53 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    
-    --foreground: 60 25% 98%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-
-    --primary: 348 26% 60%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 280 5% 13%;
-    --secondary-foreground: 60 25% 98%;
-
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-
-    --accent: 221 83% 95%;
-    --accent-foreground: 221 83% 53%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 348 26% 60%;
-    --input: 214 32% 91%;
-    --ring: 348 26% 60%;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+  :root,
   .dark {
-    
-    --foreground: 348 26% 60%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 348 26% 60%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 348 26% 60%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 348 26% 60%;
+    --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 6%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 348 26% 60%;
+    --background: 231 15% 9%;
+    --foreground: 220 13% 91%;
+
+    --card: 228 14% 7%;
+    --card-foreground: 220 13% 91%;
+
+    --popover: 228 14% 7%;
+    --popover-foreground: 220 13% 91%;
+
+    --primary: 24 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 230 10% 11%;
+    --secondary-foreground: 220 13% 91%;
+
+    --muted: 230 10% 11%;
+    --muted-foreground: 229 7% 56%;
+
+    --accent: 230 10% 11%;
+    --accent-foreground: 220 13% 91%;
+
+    --destructive: 354 68% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 156 78% 34%;
+    --warning: 45 93% 47%;
+
+    --border: 228 14% 15%;
+    --input: 228 14% 15%;
+    --ring: 24 100% 50%;
+
+    --sidebar-background: 225 13% 6%;
+    --sidebar-foreground: 220 13% 91%;
+    --sidebar-primary: 24 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 0 0% 13%;
-    --sidebar-ring: 348 26% 60%;
+    --sidebar-accent: 230 10% 11%;
+    --sidebar-accent-foreground: 220 13% 91%;
+    --sidebar-border: 228 14% 15%;
+    --sidebar-ring: 24 100% 50%;
   }
 }
 
@@ -88,7 +57,9 @@
   }
 
   body {
-    @apply bg-[#2D2D2D] text-foreground;
+    @apply bg-background text-foreground;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 7px 7px;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -123,6 +94,15 @@
 
 .icon-rainbow {
   color: #a982ed;
+}
+
+/* foxyz brand wordmark gradient */
+.brand-gradient {
+  background: linear-gradient(180deg, #ff6600, #dc3e00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* Prevent Radix Select from hiding the scrollbar */
