@@ -817,7 +817,6 @@ const Index: React.FC = () => {
                     language={language}
                     isLoading={isLoading}
                     readOnly={isViewMode && !canEdit}
-                    showLineNumbers={isViewMode}
                     onByteStatsChange={setByteStats}
                     onFileDrop={handleFileDrop}
                     dropDisabled={isViewMode && !canEdit}
@@ -835,7 +834,6 @@ const Index: React.FC = () => {
                 language={language}
                 isLoading={isLoading}
                 readOnly={isViewMode && !canEdit}
-                showLineNumbers={isViewMode}
                 onByteStatsChange={setByteStats}
                 onFileDrop={handleFileDrop}
                 dropDisabled={isViewMode && !canEdit}

@@ -582,7 +582,6 @@ export default function Workspace() {
                     language={selectedFile.language}
                     isLoading={isLoading}
                     readOnly={!isEditable}
-                    showLineNumbers={!isEditable}
                     placeholder=""
                     onFileDrop={handleFileDrop}
                     dropDisabled={!isEditable}
@@ -602,7 +601,6 @@ export default function Workspace() {
                 language={selectedFile.language}
                 isLoading={isLoading}
                 readOnly={!isEditable}
-                showLineNumbers={!isEditable}
                 placeholder=""
                 onFileDrop={handleFileDrop}
                 dropDisabled={!isEditable}
