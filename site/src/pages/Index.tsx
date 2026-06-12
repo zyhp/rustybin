@@ -692,7 +692,7 @@ const Index: React.FC = () => {
 
             <div className="flex items-center gap-2 ml-auto">
               {advancedControls && (
-                <div className="hidden sm:flex items-center gap-2">
+                <div className="hidden sm:flex lg:hidden items-center gap-2">
                   {advancedControls}
                 </div>
               )}
@@ -712,6 +712,8 @@ const Index: React.FC = () => {
           </div>
         )}
 
+        <div className="flex flex-1 min-h-0">
+          <div className="flex flex-1 flex-col min-h-0">
         {showMarkdownRendered ? (
           <div className="flex-1 overflow-auto p-6 max-w-4xl mx-auto">
             <MarkdownViewer content={text} />
@@ -754,6 +756,69 @@ const Index: React.FC = () => {
             dropDisabled={isViewMode && !canEdit}
           />
         )}
+          </div>
+
+          {/* Options side-panel (desktop, create mode) */}
+          {showAdvancedToggle && (
+            <aside className="hidden lg:flex w-64 shrink-0 flex-col border-l border-border bg-card">
+              <div className="flex items-center gap-2 h-[37px] px-3 border-b border-border text-[13px] font-semibold text-white">
+                <span className="icon-tile h-6 w-6"><Settings2 className="h-3.5 w-3.5" /></span>
+                Options
+              </div>
+
+              <div className="flex items-center justify-between px-3 py-3 border-b border-border text-sm">
+                <Label htmlFor="advanced-panel" className="cursor-pointer text-white/80">Advanced</Label>
+                <Switch id="advanced-panel" checked={advancedMode} onCheckedChange={setAdvancedMode} className="h-[21px]" />
+              </div>
+
+              <div className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}>
+                <span className="flex items-center gap-2 text-white/80"><Clock className="h-3.5 w-3.5" /> Expiration</span>
+                <Select value={expiresInMinutes?.toString() || "never"} onValueChange={(value) => setExpiresInMinutes(value === "never" ? null : parseInt(value))}>
+                  <SelectTrigger className="h-[24px] w-[104px] text-[11px] bg-[#1a1b20] border-border rounded"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0F1014] border-border rounded">
+                    {EXPIRATION_OPTIONS.map((option) => (
+                      <SelectItem key={option.value} value={option.value} className="text-[11px]">{option.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}>
+                <span className="flex items-center gap-2 text-white/80"><Flame className="h-3.5 w-3.5" /> Burn after read</span>
+                <Switch checked={burnAfterRead} onCheckedChange={setBurnAfterRead} className="h-[21px]" />
+              </div>
+
+              <div className={`flex items-center justify-between px-3 py-3 border-b border-border text-sm transition-opacity ${advancedMode ? "" : "opacity-40 pointer-events-none"}`}>
+                <span className="flex items-center gap-2 text-white/80"><Shield className="h-3.5 w-3.5" /> Quantum</span>
+                <Switch
+                  checked={quantumResistant}
+                  onCheckedChange={async (checked) => {
+                    if (checked) {
+                      try {
+                        await import("crystals-kyber-js");
+                        setQuantumResistant(true);
+                      } catch {
+                        toast.error("Quantum encryption unavailable");
+                        setQuantumResistant(false);
+                      }
+                    } else {
+                      setQuantumResistant(false);
+                    }
+                  }}
+                  className="h-[21px]"
+                />
+              </div>
+
+              <button
+                onClick={() => !isLoading && saveContent()}
+                disabled={isLoading}
+                className="btn-shine mt-auto bg-primary text-primary-foreground font-bold text-sm py-3 border-t border-primary/55 hover:bg-primary/90 transition-colors disabled:opacity-50"
+              >
+                {isLoading ? "Creating…" : "Create paste"}
+              </button>
+            </aside>
+          )}
+        </div>
 
         {/* Editor status bar */}
         <div className="flex items-center border-t border-border bg-[#0d0e11] text-[10px] uppercase tracking-wider font-bold text-muted-foreground shrink-0">
